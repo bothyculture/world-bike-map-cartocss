@@ -47,13 +47,17 @@ RUN git clone https://github.com/kosmtik/kosmtik.git /kosmtik && \
     npm install && \
     npm link
 
-                    --install kosmtik-fetch-remote \
-                    --install kosmtik-overlay \
-                    --install kosmtik-open-in-josm \
-                    --install kosmtik-map-compare \
-                    --install kosmtik-osm-data-overlay \
-                    --install kosmtik-mapnik-reference \
-                    --install kosmtik-geojson-overlay \
+RUN echo "Installing Kosmtik plugins"
+WORKDIR /kosmtik
+RUN kosmtik plugins \
+    --install kosmtik-overpass-layer \
+    --install kosmtik-fetch-remote \
+    --install kosmtik-overlay \
+    --install kosmtik-open-in-josm \
+    --install kosmtik-map-compare \
+    --install kosmtik-osm-data-overlay \
+    --install kosmtik-mapnik-reference \
+    --install kosmtik-geojson-overlay \
     && cp /root/.config/kosmtik.yml /tmp/.kosmtik-config.yml
 
 # Closing section
