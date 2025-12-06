@@ -14,19 +14,19 @@ RUN apt-get update && \
     curl \
     fonts-dejavu-core \
     fonts-hanazono \
-    fonts-hanazono ttf-unifont \
+    fonts-hanazono \
     fonts-noto \
     fonts-noto-cjk \
     fonts-noto-color-emoji \
     fonts-noto-hinted \
     fonts-noto-unhinted \
+    fonts-unifont \
     gnupg \
     mapnik-utils \
     nodejs \
     npm \
     postgresql-client \
-    python \
-    ttf-unifont \
+    python3 \
     unifont \
     unzip && \
     rm -rf /var/lib/apt/lists/*
