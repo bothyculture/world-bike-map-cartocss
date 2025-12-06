@@ -1,4 +1,4 @@
-FROM node:19.4
+FROM node:20
 
 # Set the locale. This affects the encoding of the Postgresql template
 # databases.
