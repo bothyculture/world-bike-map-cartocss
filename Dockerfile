@@ -39,14 +39,14 @@ RUN wget https://github.com/stamen/terrain-classic/blob/master/fonts/unifont-Med
 
 # Kosmtik with plugins, forcing prefix to /usr because bionic sets
 # npm prefix to /usr/local, which breaks the install
-RUN npm set prefix /usr && \
-    git clone https://github.com/kosmtik/kosmtik.git && \
-    cd kosmtik && \
-    sed -i 's/"leaflet": *"[^"]*"/"leaflet": "^1.9.4"/' package.json && \
-    npm install -g
 
-WORKDIR /usr/lib/node_modules/kosmtik/
-RUN kosmtik plugins --install kosmtik-overpass-layer \
+RUN echo "Installing Kosmtik"
+RUN git clone https://github.com/kosmtik/kosmtik.git /kosmtik && \
+    cd /kosmtik && \
+    sed -i 's/"leaflet": *"[^"]*"/"leaflet": "^1.9.4"/' package.json && \
+    npm install && \
+    npm link
+
                     --install kosmtik-fetch-remote \
                     --install kosmtik-overlay \
                     --install kosmtik-open-in-josm \
