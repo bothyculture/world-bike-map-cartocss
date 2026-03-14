@@ -78,4 +78,16 @@ kosmtik)
   # It needs Ctrl+C to be interrupted
   ;;
 
-esac
+# contours)
+#   wget http://download.geofabrik.de/africa/tanzania.poly
+#   phyghtmap --polygon=tanzania.poly -j 2 -s 10 -0 --source=view3 --max-nodes-per-tile=0 --max-nodes-per-way=0 --pbf
+#   # Remove now useless files
+#   rm -r hgt
+#   rm *.poly
+#   sudo -u postgres createdb data
+#   sudo -u postgres psql data -c 'CREATE EXTENSION postgis;'
+#   # Load the data into the contours database:
+#   sudo -u postgres osm2pgsql --slim -d data --cache 5000 --style ./contours.style ./*.osm.pbf
+#   ;;
+
+# esac
