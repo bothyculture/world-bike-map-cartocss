@@ -1,0 +1,38 @@
+FROM ubuntu:bionic
+
+# RUN apt update
+# RUN apt install software-properties-common -y
+# RUN add-apt-repository universe -y
+# RUN apt update
+
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    osm2pgsql postgresql-client ca-certificates curl gnupg python3 \
+    gdal-bin python-gdal geotiff-bin python3-matplotlib python3-numpy \
+    python3-bs4 python3-pkg-resources python3-gdal python3-lxml
+
+RUN echo 'deb http://ppa.launchpad.net/osmadmins/ppa/ubuntu bionic main\n\
+deb-src http://ppa.launchpad.net/osmadmins/ppa/ubuntu bionic main' > \
+    /etc/apt/sources.list.d/osmadmins-ppa.list
+
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
+    --recv A438A16C88C6BE41CB1616B8D57F48750AC4F2CB
+
+COPY phyghtmap_2.23-1_all.deb .
+RUN dpkg -i phyghtmap*.deb
+RUN apt-get --fix-broken install  # To ensure missing dependencies are installed
+RUN rm phyghtmap*.deb
+RUN mkdir -p ./dem/hgt/SRTM3v3.0
+
+RUN phyghtmap -v # --download-only --srtm=3 --srtm-version=3 --earthexplorer-user='world.bike.map' --earthexplorer-password='t3z5p-.wF4$V?VQ' --hgtdir=./dem/hgt -a -180:-85.05112877980659:180:85.05112877980659
+
+RUN gdalwarp -s_srs EPSG:4269 -t_srs "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs" -r bilinear <IN.tif> <PROJ.tif>
+RUN gdaldem hillshade -co compress=lzw -compute_edges <PROJ.tif> <HILLSHADE.tif>
+RUN gdaldem color-relief <HILLSHADE.tif> -alpha shade.ramp <SEMI-TRANSPARENT-HILLSHADE.tif>
+RUN gdalbuildvrt dem/shade.vrt <SEMI-TRANSPARENT-HILLSHADE.tif>
+
+RUN mkdir -p /cyclosm
+WORKDIR /cyclosm
+
+RUN rm -rf /var/lib/apt/lists/*
+
+CMD sh scripts/docker-startup.sh contours

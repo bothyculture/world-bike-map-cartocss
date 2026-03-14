@@ -89,6 +89,31 @@ services:
       - CACHE=8000
       - THREADS=10
       - OSM2PGSQL_DATAFILE
+  contours:
+    image: world-bike-map-tile-server-contours
+    shm_size: 2gb
+    cpus: "8"
+    mem_reservation: "6G"
+    build:
+      context: .
+      dockerfile: Dockerfile.contours
+    deploy:
+      resources:
+        reservations:
+          cpus: '8'
+          memory: 6G
+    volumes:
+      - .:/cyclosm
+    depends_on:
+      - db
+    environment:
+      - PGHOST=db
+      - PGUSER=postgres
+      - PG_WORK_MEM
+      - PG_MAINTENANCE_WORK_MEM
+      - CACHE=8000
+      - THREADS=10
+      - OSM2PGSQL_DATAFILE
 volumes:
   osm-data:
     external: true
