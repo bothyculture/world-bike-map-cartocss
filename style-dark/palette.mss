@@ -30,39 +30,39 @@
 /* ================================================================== */
 
 /* The lighten() calls below compensate for the extra opacity from the hillshades. */
-@land:              #3b513a;
-@grass:             #64703f;
-@meadow:            #647a4c;
-@park:              #859553;
-@cemetery:          #6a8a66;
-@wooded:            #556e51;
-@heath:             #475736;
-@scrub:             #6c6e51;
-@farmland:          #3e593c;
-@water:             #365463;
+@land:              #eee5dc;
+@grass:             #c2debd;
+@meadow:            #e2eecb;
+@park:              #c2debd;
+@cemetery:          #D6DED2;
+@wooded:            #95bd84;
+@heath:             #b2c068;
+@scrub:             #c8d7ab;
+@farmland:          #fbf0e3;
+@water:             #8ecbeb;
 @glacier:           #ddecec;
 @religious:         #ded4b2;
 @military:          #f55;
-@quarry:            #4a4949;
-@sand:              #d1b28e;
-@bare_ground:       #878582;
+@quarry:            #c5c3c3;
+@sand:              #f5e9c6;
+@bare_ground:       #eee5dc;
 @hedge:             #add19e;
 
 @nature_reserve:    #05620e;
 
-@building:          #636d84;
-@hospital:          #adadad;
-@school:            #4e5669;
-@sports:            #adadad;
+@building:          #e4dfdb;
+@hospital:          #e0e0e0;
+@school:            #e0e0e0;
+@sports:            #e0e0e0;
 @stadium:           @land * 0.97;
 @pitch:             @park * 0.97;
 @track:             @park * 0.96;
 @bicycle-leisure-track-fill: #bbaeb8;
 
 @residential:       @land * 1.05;
-@commercial:        #787878;
+@commercial:        #ded8dd;
 @industrial:        @land * 0.96;
-@parking:           #808080;
+@parking:           #EEE;
 
 @power-line: #888;
 
@@ -76,29 +76,29 @@
 
 /* We set up a default halo color for places so you can edit them all
    at once or override each individually. */
-@place_halo:        #000;
+@place_halo:        fadeout(#fff,34%);
 
-@country_text:      #fff;
+@country_text:      #222;
 @country_halo:      @place_halo;
 
-@state_text:        #fff;
+@state_text:        #222;
 @state_halo:        @place_halo;
 
-@city_text:         #fff;
+@city_text:         #222;
 @city_halo:         @place_halo;
 
-@town_text:         #fff;
+@town_text:         #222;
 @town_halo:         @place_halo;
 
 @poi_text:          #666;
 
-@road_text:         #fff;
-@road_halo:         #000;
+@road_text:         #222;
+@road_halo:         #fff;
 
 @other_text:        #666;
 @other_halo:        @place_halo;
 
-@locality_text:     #fff;
+@locality_text:     #aaa;
 @locality_halo:     @land;
 
 @ferry-route: #66f;
@@ -110,12 +110,12 @@
 @village_text:      #444;
 @village_halo:      @place_halo;
 
-@placenames: #fff;
-@placenames-light: #fff;
+@placenames: #111;
+@placenames-light: #444;
 
-@standard-halo-radius:0.8;
-@standard-halo-fill: rgba(0,0,0,0.8);
-@standard-font-size: 24;
+@standard-halo-radius: 1;
+@standard-halo-fill: rgba(255,255,255,0.6);
+@standard-font-size: 10;
 @standard-wrap-width: 30;
 @standard-line-spacing-size: -1.5;
 
@@ -143,7 +143,7 @@
 @contours-small-min-path-length: 200;
 @contours-min-path-length: 300;
 @contours-max-char-angle-delta: 10;
-@contours-fill: #999999;
+@contours-fill: #ffa970;
 @contours-stroke: #c45700;
 
 /* ================================================================== */
@@ -158,9 +158,9 @@
 
 @natural_volcano: #980000;
 
-@bicycle-amenity: #980000;
+@bicycle-amenity: #ac39ac;
 @bicycle-rental: #006ac3;
-@marina-text: #fff;
+@marina-text: #576ddf;
 @nobike-transportation-icon: #444444;
 @transportation-icon: #0092da;
 @transportation-text: #0066ff;
