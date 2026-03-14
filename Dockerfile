@@ -1,4 +1,4 @@
-FROM node:19.4
+FROM node:20
 
 # Set the locale. This affects the encoding of the Postgresql template
 # databases.
@@ -14,19 +14,19 @@ RUN apt-get update && \
     curl \
     fonts-dejavu-core \
     fonts-hanazono \
-    fonts-hanazono ttf-unifont \
+    fonts-hanazono \
     fonts-noto \
     fonts-noto-cjk \
     fonts-noto-color-emoji \
     fonts-noto-hinted \
     fonts-noto-unhinted \
+    fonts-unifont \
     gnupg \
     mapnik-utils \
     nodejs \
     npm \
     postgresql-client \
-    python \
-    ttf-unifont \
+    python3 \
     unifont \
     unzip && \
     rm -rf /var/lib/apt/lists/*
@@ -39,21 +39,25 @@ RUN wget https://github.com/stamen/terrain-classic/blob/master/fonts/unifont-Med
 
 # Kosmtik with plugins, forcing prefix to /usr because bionic sets
 # npm prefix to /usr/local, which breaks the install
-RUN npm set prefix /usr && \
-    git clone https://github.com/kosmtik/kosmtik.git && \
-    cd kosmtik && \
-    sed -i 's/"leaflet": *"[^"]*"/"leaflet": "^1.9.4"/' package.json && \
-    npm install -g
 
-WORKDIR /usr/lib/node_modules/kosmtik/
-RUN kosmtik plugins --install kosmtik-overpass-layer \
-                    --install kosmtik-fetch-remote \
-                    --install kosmtik-overlay \
-                    --install kosmtik-open-in-josm \
-                    --install kosmtik-map-compare \
-                    --install kosmtik-osm-data-overlay \
-                    --install kosmtik-mapnik-reference \
-                    --install kosmtik-geojson-overlay \
+RUN echo "Installing Kosmtik"
+RUN git clone https://github.com/kosmtik/kosmtik.git /kosmtik && \
+    cd /kosmtik && \
+    sed -i 's/"leaflet": *"[^"]*"/"leaflet": "^1.9.4"/' package.json && \
+    npm install && \
+    npm link
+
+RUN echo "Installing Kosmtik plugins"
+WORKDIR /kosmtik
+RUN kosmtik plugins \
+    --install kosmtik-overpass-layer \
+    --install kosmtik-fetch-remote \
+    --install kosmtik-overlay \
+    --install kosmtik-open-in-josm \
+    --install kosmtik-map-compare \
+    --install kosmtik-osm-data-overlay \
+    --install kosmtik-mapnik-reference \
+    --install kosmtik-geojson-overlay \
     && cp /root/.config/kosmtik.yml /tmp/.kosmtik-config.yml
 
 # Closing section
